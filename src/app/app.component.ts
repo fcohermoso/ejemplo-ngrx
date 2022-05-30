@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { pedirProductos } from './state/actions/productos.actions';
+import { AppState } from './state/app.types';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'ejemplo-ngrx';
+  constructor(
+    private store: Store<AppState>
+  ) {
+    store.dispatch(pedirProductos());
+  }
 }
