@@ -26,10 +26,11 @@ export class MaquinaExpEffects {
     return this.actions$.pipe(
       ofType(ActionTypes.COMPROBAR_SACAR_PRODUCTO),
       switchMap((action: any) => {
-        return this.store.select(selectProductoByCodigo(action.codigo)).pipe(first());
+        return this.store.select(selectProductoByCodigo(action.codigo))
+          .pipe(first());
       }),
       map(({ producto }) => {
-        if(producto) {
+        if(producto && producto.stock > 0) {
           return sacarProducto({producto})
         }
         return { type: 'EMPTY' }
